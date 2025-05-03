@@ -1,6 +1,19 @@
-const noblox = require("noblox.js")
+const express = require('express');
+const noblox = require("noblox.js");
 
-const args = process.argv;
+const app = express();
+
+app.get('/yield-results', async (req, res) => {
+  const username = req.query.username;
+  const userId = await getId(username);
+  const wearingAssets = await noblox.currentlyWearing(userId);
+  const array = wearingAssets.assetIds;
+  let result = '';
+  array.forEach(element => {
+    result += `!hat ${element} | `;
+  });
+  res.send(result);
+});
 
 async function getId(username) {
   try {
@@ -12,15 +25,12 @@ async function getId(username) {
   }
 }
 
-const wearingAssets = await noblox.currentlyWearing(userId)
-
-let array = wearingAssets.assetIds;
-
-for (let index = 0; index < array.length; index++) {
-  const element = array[index];
-}
-
-array.forEach(element => {
-   process.stdout.write(`!hat ${element} | `);
+app.set('view engine', 'ejs');
+app.get('/', (req, res) => {
+  res.render('index', { title: 'Steal their look!' });
 });
-process.stdout.write(`\n`)
+
+app.use(express.static(__dirname + '/views'));
+app.listen(3000, () => {
+  console.log('hosting on port 3000');
+});
