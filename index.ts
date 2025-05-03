@@ -12,10 +12,7 @@ async function getId(username) {
   }
 }
 
-const userId = await getId(args[2]);
 const wearingAssets = await noblox.currentlyWearing(userId)
-
-console.log(`ID: ${getId(args[2])}`);
 
 let array = wearingAssets.assetIds;
 
