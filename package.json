@@ -1,0 +1,15 @@
+{
+  "name": "stealtheirlook",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "noblox.js": "^6.1.1"
+  }
+}
